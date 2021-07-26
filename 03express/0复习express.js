@@ -33,11 +33,12 @@ app.use('test', async function (req, res) {
     console.log('12345');
 
 });
-app.use('/a/:id/b:age', function (req, res) {
+app.use('/a/:id/b/:age', function (req, res) {
     // 客户端参数两种方式
     // params req.query
     // body req.body
     // url中params (/a/123) req.params
+    
     console.log(req.params);
     res.json({
         msg: '测试request'
