@@ -7,6 +7,43 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <form action="" enctype="multipart/form-data" id="form">
+        <input type="file" name="imgSrc" id="">
+        <button>上传图片</button>
+    </form>
+    <div id="show">
+        <img src="" alt="" id="img">
+    </div>
+    <script src="./jQuery.js"></script>
+    <script>
+        // import axios from '../node_modules/axios/lib/axios.js'
+        var btn = document.querySelector("button");
+        var ipt = document.querySelector("input[name=imgSrc]");
+        btn.onclick = function(e){
+            e.preventDefault();
+            var formData = new FormData();
+            formData.append("imgSrc",ipt.files[0])
+            $.ajax({
+                url:'http://localhost:3000/upload',
+                method:'post',
+                contentType:false,
+                processData:false,
+                data:formData,
+                success:function(data){
+                    console.log(data);
+                    img.src = data.url;
+                }
+            })
+        }
+
+    </script>
+    <!-- 
+        图片上传组件:
+        1.从电脑到浏览器
+        2.展示从电脑中选中的图片
+        3.将图片上传到服务器
+        4.展示进度过程
+        5.成功后 提示成功
+     -->
 </body>
 </html>

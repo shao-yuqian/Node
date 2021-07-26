@@ -7,21 +7,30 @@
 const express = require("express");
 const app = express();
 const route = express.Router();
+const cores = require('cors')
 const expressFormidable = require('express-formidable');
-
-route.post('/upload',function(req,res){
+app.use(cores());
+route.post('/upload', function (req, res) {
     let img = req.files.imgSrc;
-    console.log(img);
+    const ip = 'http://192.168.1.161';
+    const port = 3000;
+    let reg = /upload_(.+)(\.(gif|png|jpg|jpeg|webp|svglpsd|bmp|tif))/;
+    console.log(img.path.match(reg));
+    let imgSrc = img.path.match(reg)[0];
+    let url = `${ip}:${port}/${imgSrc}`
+    console.log(img.path);
+    console.log(url);
     res.json({
-        code:200,
+        code: 200,
+        url: url
     })
 })
-
+app.use(express.static('./upload'));
 app.use(expressFormidable({
-    encoding:'utf-8',
-    uploadDir:"./upload",
-    // multiples:true,//验证是否支持多张上传
-    keepExtensions:true //是否保留文件后缀名字
+    encoding: 'utf-8',
+    uploadDir: "./upload",
+    multiples: true,//验证是否支持多张上传
+    keepExtensions: true //是否保留文件后缀名字
 }));
 app.use(route);
 
