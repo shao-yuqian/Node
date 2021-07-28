@@ -43,7 +43,7 @@ route.post('/userInfo',function(req,res){
     let port = 3000;
     let reg = /upload_(.+)(\.(gif|png|jpg|jpeg|webp|svglpsd|bmp|tif))/
     let imgPath = imgsrc.path.match(reg[0]);
-    imgPath = `${host}:${port}/${imgPath}`;
+    imgPath = `${host}:${port}/${imgPath}`; 
 
     // 将准备好的数据存到数据库中
     let sql = `insert into user (username,password,dec,imgsrc) values (?,?,?,?);`;

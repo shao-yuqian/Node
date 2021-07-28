@@ -1,4 +1,4 @@
-const mysql = require('mysql2');
+const mysql = require('mysql');
 var connection = mysql.createConnection({
     host: 'localhost',     //连接地址
     user: 'root',          //用户名
