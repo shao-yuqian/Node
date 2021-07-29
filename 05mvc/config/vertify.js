@@ -7,12 +7,20 @@ let private = String(fs.readFileSync(path.resolve('./config/private.key')));
 module.exports = function (arr, obj) {
     return function (req, res, next) {
         let { token } = req.fields;
-        jsonwebtoken.verify(token, private,function (err, data) {
+        if(token == undefined){
+            res.json({
+                code:203,
+                msg:"token 为空"
+            })
+            return;
+        }
+        jsonwebtoken.verify(token,private,function (err, data) {
             if (err) {
                 console.log(err);
                 res.json({
                     code: 200,
-                    msg: "无效token"
+                    msg: "无效token",
+                    data,
                 })
                 return;
             } else {
@@ -20,6 +28,5 @@ module.exports = function (arr, obj) {
                 next();
             }
         })
-
     }
 }

@@ -41,9 +41,8 @@ router.post('/login', async (req, res) => {
     }
 
     // 
-    username = JSON.stringify(username);
-
-    let sql = `select * from user wehere username=${username}`;
+    // username = JSON.stringify(username);
+    let sql = `select * from user where username=${JSON.stringify(username)}`;
     let data = await db(sql);
     console.log(data);
     if (data.length == 0) {
@@ -65,13 +64,14 @@ router.post('/login', async (req, res) => {
     let token = jsonwebtoken.sign({
         username,
     },private,{
-        expiresIn:60*60*2,
+        expiresIn:60*60*6,
     })
     res.json({
         username,
         token,
         rolu:user.rolu,
         code: 200,
+        msg:'登录成功sucess'
     })
 
 })

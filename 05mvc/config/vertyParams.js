@@ -9,16 +9,16 @@
  * @param {*} obj 
  * @returns true 表示合法 false表示不合法
  */
-function vertifyParams(arr,obj){
+function vertifyParams(arr, obj) {
     let paramKey = Object.keys(obj);
-    if(arr.length != paramKey.length){
+    if (arr.length != paramKey.length) {
         return false;
     }
-    for(let i=0;i<paramKey.length;i++){
+    for (let i = 0; i < paramKey.length; i++) {
         let result = arr.indexOf(paramKey[i]);
-        if(result === -1){
+        if (result === -1) {
             return false;
-        }        
+        }
     }
     return true;
 }
